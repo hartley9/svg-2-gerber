@@ -18,18 +18,6 @@
    <!-- <button id='convert-button' onclick='convert()' size>convert</button> -->
 
    <h3>Press enter to download.</h3>
-    
-    <script>
-        function convert(){
-            var inputText = document.getElementById('svg_input').value;
-            var gerberOut = svg_2_gerber(inputText);
-
-
-            download('silkscreen_top.GTO', gerberOut);
-            console.log(gerberOut);
-        }
-    </script>
-
 
 
 <script src='./dist/main.js'></script>
