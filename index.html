@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script type='module' src='./main.js'></script> -->
+  
+    <title>svg-2-gerber</title>
+</head>
+<body id='main-body'>
+
+    <h1>svg-to-gerber</h1>
+
+    <textarea id='svg_input' cols='25' rows='25'>
+        
+    </textarea>
+   <!-- <button id='convert-button' onclick='convert()' size>convert</button> -->
+
+   <h3>Press enter to download.</h3>
+    
+    <script>
+        function convert(){
+            var inputText = document.getElementById('svg_input').value;
+            var gerberOut = svg_2_gerber(inputText);
+
+
+            download('silkscreen_top.GTO', gerberOut);
+            console.log(gerberOut);
+        }
+    </script>
+
+
+
+<script src='./dist/main.js'></script>
+
+</body>
+</html>
