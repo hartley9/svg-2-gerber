@@ -21,18 +21,16 @@ document.addEventListener("keyup", function(event) {
     if (event.keyCode === 13) {
        console.log(document.getElementById('svg_input').value)
 
-
+        //get svg source code from textbox
        var mySvg = svgElementFromString(document.getElementById('svg_input').value);
 
-
+        //use flatten-svg to get points representing svg
        let mypaths = flattenSVG(mySvg);
         console.log('flattenSVGPoints')
-        //console.log(paths); 
-
-
+    
+        //generate gerber from points
         var gerberFromPoints = generateSilkscreenFromPoints(mypaths)
-        //console.log(gerberFromPoints);
-
+    
         download('silkscreen_top.GTO', gerberFromPoints);
     }
 
@@ -42,7 +40,6 @@ document.addEventListener("keyup", function(event) {
 var svg = document.getElementById('test-svg')
 
 //body.innerHTML += `<button id='convert-button' onclick='convert()' size>convert</button>`
-
 
 var svgElementFromString = function(str) {
     var div = document.createElement('DIV');
@@ -84,8 +81,25 @@ function generateSilkscreenFromPoints(pointsArray){
     return silkscreenStr;
 }
 
+function download(filename, text)
+{
+ 
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
 
 
+
+/* 
+PREVIOUS METHOD OF GENERATING GERBER FROM SVG PATHS
 
 var svg = `
 <svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
@@ -113,15 +127,6 @@ console.log(gerberOut);
  
     return gerberStr;
 }
-
-function convert(){
-    console.log('ive been clicked')
-}
-
-convButton.onclick = testFunc();
-
-
-
 
 function generateSilkscreen(mapping){
     var silkscreenStr = ``
@@ -218,18 +223,5 @@ function createMapping(lines){
     return mapping;
 }
 
+ */
 
-function download(filename, text)
-{
- 
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
-}
